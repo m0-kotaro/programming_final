@@ -1,0 +1,121 @@
+#include <iostream>
+#include <string>
+#include <fstream>
+#include <vector>
+#include <iomanip>
+#include <algorithm>
+#include <random>
+
+using namespace std;
+
+
+// 自分の身長と体重を記入
+double a = 177 ;
+double b = 65;
+
+
+class Personal {
+
+protected:
+    int height;
+ double ideal;
+ double slim;
+ double fat;
+    
+public:
+    void setHeight(int newHeight);
+    void setIdeal(double newIdeal);
+    void setSlim(double newSlim);
+    void setFat(double newFat);
+    void show();
+};
+
+void Personal::setHeight(int newHeight) {
+    height = newHeight;
+}
+
+void Personal::setIdeal(double newIdeal) {
+    ideal = newIdeal;
+}
+
+void Personal::setSlim(double newSlim) {
+    slim = newSlim;
+}
+
+void Personal::setFat(double newFat) {
+    fat = newFat;
+}
+
+void Personal::show(){
+    if(height == a){
+        cout << "理想体重:" << ideal << " 痩せ型体重:" << slim << "肥満体重" << fat << endl <<"理想体重との差:" <<b-ideal<< "痩せ型体重との差:" <<b-slim<< "肥満体重との差:" << b-fat<< endl;
+    }
+    
+    }
+
+
+void height_read(vector<Personal>) {};
+void ideal_read(vector<Personal>) {};
+void slim_read(vector<Personal>) {};
+void fat_read(vector<Personal>) {};
+
+
+vector<int>v(int min, int max, int num){
+    vector<int> vec;
+    random_device engine;
+    uniform_int_distribution<int> dist(min, max);
+    for (int i = 0; i <num; ++i){
+        vec.push_back(dist(engine));
+}
+return vec;
+}
+
+void displayNum(vector<int> v){
+    for (auto x: v)
+        cout << x << ",";
+}
+
+int main() {
+    
+    double a2 = a/100;
+    double c = b/(a2*a2);
+    cout <<fixed<<setprecision(2) <<"私の身長は "<<a<<"体重は"<<b<<"BMIは"<<c<< endl;
+   
+        
+    vector<Personal> hyou;
+    
+    
+    ifstream infile("k.txt");
+    
+    int height;
+    double slim, ideal, fat;
+    while (infile >> height >> ideal >> slim >> fat) {
+        hyou.emplace_back();
+        hyou[hyou.size() - 1].setHeight(height);
+        hyou[hyou.size() - 1].setIdeal(ideal);
+        hyou[hyou.size() - 1].setSlim(slim);
+        hyou[hyou.size() - 1].setFat(fat);
+        }
+    
+    
+    infile.close();
+    for(int i = 0; i <hyou.size(); i++)hyou[i].show();
+
+    
+    vector<int>randVec;
+    randVec = v(0, 10, 5);
+    sort(randVec.begin(), randVec.end());
+    
+    auto begin = randVec.cbegin();
+    auto end = randVec.cend();
+     
+    if(c<25){
+    int target = 3;
+    auto pos = find(begin, end, target);
+    if (pos ==end ) cout << "好きに過ごして良い\n";
+    else cout <<"運動をする日"<< endl;
+    }
+    else cout << "肥満型改善のために食事制限や運動をする";
+}
+
+
